@@ -56,20 +56,22 @@ upload button work would mean putting a GitHub token inside the page, and
 anyone could read it out of the page source and take over the repo. The panel
 does everything else and hands you the finished files instead.
 
-### Getting the button on the live site
+### On the live site
 
-It's hidden from visitors. To switch it on for yourself, visit once:
+The button is simply there on `madebyabdulhadi.com` — no hash, no unlocking.
 
-```
-https://madebyabdulhadi.com/#admin
-```
+That does mean visitors see it too. It can't hurt anything: the panel writes
+nothing to the site, only to whoever's own browser storage, so a stranger
+clicking "delete" changes their own screen and nothing else. But they *can*
+see it, so if it ever bothers you:
 
-That browser now remembers it — the button is there on every normal visit
-afterwards, no `#admin` needed. It's stored in your browser, not in the site,
-so nobody else ever sees it. Do it again on your phone or another browser if
-you want it there too.
+| | |
+|---|---|
+| Hide it on this device | `https://madebyabdulhadi.com/#admin-off` |
+| Bring it back | `https://madebyabdulhadi.com/#admin` |
 
-To switch it back off: `https://madebyabdulhadi.com/#admin-off`
+If you'd rather it were invisible to everyone but you, say so — it's a
+two-line change back to being hidden unless you unlock it.
 
 ### Deleting on the live site — read this
 

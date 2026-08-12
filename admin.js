@@ -32,18 +32,20 @@
   var isLocal = host === "localhost" || host === "127.0.0.1" || host === "";
 
   var LS_KEY = "mba_draft_v1";
-  var UNLOCK = "mba_admin_on";
+  var HIDE   = "mba_admin_off";
 
-  // Visit  yoursite.com/#admin  once and this browser remembers it, so the
-  // button is just there from then on. Visitors never see it — it's stored
-  // per-browser, not in the site. Use #admin-off to switch it back off.
+  // The button is ON everywhere, including the live site — that's how you
+  // asked for it. It can't do any harm from a stranger's browser: it writes
+  // nothing to the site, only to whoever's own localStorage.
+  // To switch it off on a device:  yoursite.com/#admin-off
+  // To switch it back on:          yoursite.com/#admin
   function readHash() {
     try {
       if (location.hash.indexOf("admin-off") !== -1) {
-        localStorage.removeItem(UNLOCK); return "off";
+        localStorage.setItem(HIDE, "1"); return "off";
       }
       if (location.hash.indexOf("admin") !== -1) {
-        localStorage.setItem(UNLOCK, "1"); return "on";
+        localStorage.removeItem(HIDE); return "on";
       }
     } catch (e) {}
     return null;
@@ -52,15 +54,14 @@
   readHash();
 
   // Typing #admin onto a page that's already open doesn't reload it, so the
-  // script never re-runs and nothing appears. Catch that and refresh.
+  // script never re-runs and nothing changes. Catch that and refresh.
   window.addEventListener("hashchange", function () {
-    var r = readHash();
-    if (r) location.reload();
+    if (readHash()) location.reload();
   });
 
-  var unlocked = false;
-  try { unlocked = localStorage.getItem(UNLOCK) === "1"; } catch (e) {}
-  if (!isLocal && !unlocked) return;
+  var hidden = false;
+  try { hidden = localStorage.getItem(HIDE) === "1"; } catch (e) {}
+  if (hidden) return;
 
   var list = [];          // the working list of projects
   var files = {};         // path -> File, for the renamed downloads
