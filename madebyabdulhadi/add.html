@@ -1,0 +1,535 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Add work — madebyabdulhadi</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+<style>
+  .tool { max-width: 1240px; margin: 0 auto; padding: 34px clamp(18px, 4vw, 48px) 90px; position: relative; z-index: 2; }
+  .tool__head { margin-bottom: 34px; }
+  .tool__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; align-items: start; }
+  @media (max-width: 940px) { .tool__grid { grid-template-columns: 1fr; } }
+
+  .box {
+    background: var(--panel); border: 1px solid var(--line-soft);
+    border-radius: var(--radius-lg); padding: 26px;
+  }
+  .box + .box { margin-top: 18px; }
+  .box h2 { margin: 0 0 4px; font-size: 17px; letter-spacing: -.01em; }
+  .box .hint { margin: 0 0 20px; font-size: 13.5px; color: var(--faint); }
+
+  .field { margin-bottom: 16px; }
+  .field label { display: block; font-size: 12px; letter-spacing: .09em; text-transform: uppercase; color: var(--faint); margin-bottom: 7px; }
+  .field input[type="text"], .field textarea, .field select {
+    width: 100%; padding: 11px 13px;
+    background: #0c0c10; color: var(--text);
+    border: 1px solid var(--line); border-radius: 10px;
+    font: inherit; font-size: 14.5px;
+  }
+  .field textarea { min-height: 96px; resize: vertical; line-height: 1.6; }
+  .field input:focus, .field textarea:focus, .field select:focus { outline: none; border-color: var(--accent); }
+  .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+  .check { display: flex; align-items: center; gap: 10px; font-size: 14.5px; color: var(--muted); cursor: pointer; }
+  .check input { width: 17px; height: 17px; accent-color: var(--accent); }
+
+  .drop {
+    border: 1px dashed var(--line); border-radius: 12px;
+    padding: 22px; text-align: center; cursor: pointer;
+    color: var(--muted); font-size: 14px;
+    transition: border-color .2s var(--ease), background .2s var(--ease);
+  }
+  .drop:hover, .drop.is-over { border-color: var(--accent); background: rgba(255,122,47,.05); }
+  .drop strong { color: var(--text); font-weight: 600; }
+  .drop input { display: none; }
+
+  .picked { list-style: none; margin: 14px 0 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+  .picked li {
+    display: flex; align-items: center; gap: 11px;
+    background: #0c0c10; border: 1px solid var(--line-soft);
+    border-radius: 10px; padding: 8px 10px; font-size: 13.5px;
+  }
+  .picked img { width: 46px; height: 34px; object-fit: cover; border-radius: 6px; flex: none; }
+  .picked .nm { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-family: "JetBrains Mono", monospace; font-size: 12.5px; }
+  .picked .sz { color: var(--faint); font-size: 12px; flex: none; }
+  .picked .badge { font-size: 10.5px; font-weight: 700; letter-spacing: .05em; color: var(--accent); flex: none; }
+
+  .warn {
+    margin-top: 14px; padding: 13px 15px; border-radius: 10px;
+    background: rgba(255,122,47,.08); border: 1px solid rgba(255,122,47,.3);
+    font-size: 13.5px; color: #ffc691; line-height: 1.55;
+  }
+  .warn strong { color: var(--accent-2); }
+  .warn code { background: rgba(0,0,0,.35); }
+
+  .statrow { display: grid; grid-template-columns: 1fr 1fr auto; gap: 9px; margin-bottom: 9px; }
+  .iconbtn {
+    width: 38px; border-radius: 10px; border: 1px solid var(--line);
+    background: transparent; color: var(--faint); cursor: pointer; font-size: 17px;
+  }
+  .iconbtn:hover { border-color: var(--accent); color: var(--accent); }
+  .linkbtn {
+    background: none; border: 0; color: var(--accent); cursor: pointer;
+    font: inherit; font-size: 13.5px; font-weight: 500; padding: 4px 0;
+  }
+  .linkbtn:hover { text-decoration: underline; }
+
+  .out { position: sticky; top: 20px; }
+  .out pre {
+    margin: 0; padding: 20px;
+    background: #08080b; border: 1px solid var(--line); border-radius: 12px;
+    overflow-x: auto; max-height: 46vh;
+    font-family: "JetBrains Mono", monospace; font-size: 12.5px; line-height: 1.7;
+    color: #cfcfd8; white-space: pre;
+  }
+  .steps { counter-reset: s; list-style: none; padding: 0; margin: 20px 0 0; }
+  .steps li {
+    counter-increment: s; position: relative; padding-left: 38px;
+    margin-bottom: 15px; font-size: 14px; color: var(--muted); line-height: 1.6;
+  }
+  .steps li::before {
+    content: counter(s); position: absolute; left: 0; top: -1px;
+    width: 25px; height: 25px; border-radius: 50%;
+    background: var(--accent-dim); color: var(--accent);
+    display: grid; place-items: center; font-size: 12px; font-weight: 700;
+  }
+  .steps b { color: var(--text); font-weight: 600; }
+  .copied { color: #6ee7a8 !important; }
+</style>
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+
+<header class="nav">
+  <a class="nav__brand" href="index.html">
+    <span class="nav__mark" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round">
+        <path d="M12 2.5 21 7v10l-9 4.5L3 17V7z"/><path d="M3 7l9 4.5L21 7"/><path d="M12 11.5V21.5"/>
+      </svg>
+    </span>
+    <span>madebyabdulhadi</span>
+  </a>
+  <nav class="nav__links"><a href="index.html">← Back to site</a></nav>
+</header>
+
+<div class="tool">
+  <div class="tool__head">
+    <p class="eyebrow">Private tool · not linked from the site</p>
+    <h1 class="section__title">Add a piece of work</h1>
+    <p class="section__sub">
+      Fill this in, then copy the generated block into <code>data/projects.js</code>.
+      Nothing is uploaded — this page just writes the code for you.
+    </p>
+  </div>
+
+  <div class="tool__grid">
+
+    <!-- ── LEFT: the form ─────────────────────────────── -->
+    <div>
+      <div class="box">
+        <h2>The render</h2>
+        <p class="hint">First image picked becomes the cover.</p>
+
+        <label class="drop" id="imgDrop">
+          <input type="file" id="imgInput" accept="image/*" multiple />
+          <strong>Choose images</strong> — or drag them here
+        </label>
+        <ul class="picked" id="imgList"></ul>
+        <div id="imgWarn"></div>
+      </div>
+
+      <div class="box">
+        <h2>The project file</h2>
+        <p class="hint">Optional. Leave empty if you're not sharing it.</p>
+
+        <label class="drop" id="blendDrop">
+          <input type="file" id="blendInput" accept=".blend,.zip,.rar,.7z" />
+          <strong>Choose .blend</strong> — or drag it here
+        </label>
+        <ul class="picked" id="blendList"></ul>
+        <div id="blendWarn"></div>
+
+        <div class="field" style="margin-top:16px">
+          <label for="blendLink">Or paste a link instead (Drive / Dropbox / Gumroad)</label>
+          <input type="text" id="blendLink" placeholder="https://drive.google.com/file/d/..." />
+        </div>
+        <div class="field">
+          <label for="license">Licence note</label>
+          <input type="text" id="license" value="Free to use · credit appreciated" />
+        </div>
+      </div>
+
+      <div class="box">
+        <h2>Details</h2>
+        <p class="hint">Only the title is required.</p>
+
+        <div class="field">
+          <label for="title">Title</label>
+          <input type="text" id="title" placeholder="Brass Desk Lamp" />
+        </div>
+
+        <div class="row2">
+          <div class="field">
+            <label for="year">Year</label>
+            <input type="text" id="year" />
+          </div>
+          <div class="field">
+            <label for="category">Category</label>
+            <input type="text" id="category" list="cats" placeholder="Product" />
+            <datalist id="cats">
+              <option>Product</option><option>Environment</option>
+              <option>Hard Surface</option><option>Character</option>
+              <option>Motion</option><option>Abstract</option><option>Study</option>
+            </datalist>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="description">Description</label>
+          <textarea id="description" placeholder="How you made it — the lighting setup, what you were trying out, what gave you trouble."></textarea>
+        </div>
+
+        <div class="field">
+          <label for="software">Software (comma separated)</label>
+          <input type="text" id="software" value="Blender 4.2, Cycles" />
+        </div>
+
+        <div class="field">
+          <label>Specs</label>
+          <div id="stats"></div>
+          <button class="linkbtn" type="button" id="addStat">+ Add another spec</button>
+        </div>
+
+        <label class="check">
+          <input type="checkbox" id="featured" />
+          Feature it — makes the card double-width
+        </label>
+      </div>
+    </div>
+
+    <!-- ── RIGHT: the output ──────────────────────────── -->
+    <div class="out">
+      <div class="box">
+        <h2>Your code block</h2>
+        <p class="hint">Updates as you type.</p>
+        <pre id="output">// Fill in the form…</pre>
+        <div style="margin-top:16px; display:flex; gap:10px; flex-wrap:wrap">
+          <button class="btn btn--primary" type="button" id="copyBtn">Copy code</button>
+          <button class="btn btn--ghost" type="button" id="resetBtn">Start over</button>
+        </div>
+
+        <ol class="steps" id="steps"></ol>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  var $ = function (id) { return document.getElementById(id); };
+  var images = [];   // {name, size, url}
+  var blend  = null; // {name, size}
+
+  var CF_LIMIT  = 25 * 1024 * 1024; // Cloudflare Pages: 25 MB per file
+  var IMG_LIMIT = 5 * 1024 * 1024;  // only nag about images above this
+
+  /* ── helpers ─────────────────────────────────────── */
+
+  function fmtSize(bytes) {
+    if (bytes < 1024) return bytes + " B";
+    if (bytes < 1048576) return Math.round(bytes / 1024) + " KB";
+    return (bytes / 1048576).toFixed(bytes < 10485760 ? 1 : 0) + " MB";
+  }
+
+  // Filenames with spaces, #, ? or capitals cause broken links once deployed.
+  function messyName(n) { return /[\s#?%&]/.test(n) || /[A-Z]/.test(n); }
+
+  function tidyName(n) {
+    return n.toLowerCase().replace(/[\s_]+/g, "-").replace(/[^a-z0-9.\-]/g, "");
+  }
+
+  function q(s) {
+    return '"' + String(s).replace(/\\/g, "\\\\").replace(/"/g, '\\"') + '"';
+  }
+
+  // Break a long description across lines so projects.js stays readable.
+  function wrapString(text, indent) {
+    var words = text.split(/\s+/), lines = [], line = "";
+    words.forEach(function (w) {
+      if ((line + " " + w).length > 62) { lines.push(line); line = w; }
+      else { line = line ? line + " " + w : w; }
+    });
+    if (line) lines.push(line);
+    return lines.map(function (l, i) {
+      return indent + q(l + (i < lines.length - 1 ? " " : ""));
+    }).join(" +\n");
+  }
+
+  /* ── file pickers ────────────────────────────────── */
+
+  function renderImages() {
+    var list = $("imgList");
+    list.innerHTML = "";
+    images.forEach(function (f, i) {
+      var li = document.createElement("li");
+      li.innerHTML =
+        '<img src="' + f.url + '" alt="">' +
+        '<span class="nm">' + tidyName(f.name) + "</span>" +
+        (i === 0 ? '<span class="badge">COVER</span>' : "") +
+        '<span class="sz">' + fmtSize(f.size) + "</span>";
+      var x = document.createElement("button");
+      x.className = "iconbtn"; x.type = "button"; x.textContent = "×";
+      x.style.width = "30px";
+      x.setAttribute("aria-label", "Remove " + f.name);
+      x.onclick = function () { images.splice(i, 1); renderImages(); build(); };
+      li.appendChild(x);
+      list.appendChild(li);
+    });
+
+    var w = $("imgWarn"); w.innerHTML = "";
+    // Above CF_LIMIT gets its own harder warning below — don't say it twice.
+    var heavy = images.filter(function (f) {
+      return f.size > IMG_LIMIT && f.size <= CF_LIMIT;
+    });
+    var messy = images.filter(function (f) { return messyName(f.name); });
+
+    if (heavy.length) {
+      w.innerHTML += '<div class="warn"><strong>' + heavy.length + " image" +
+        (heavy.length > 1 ? "s are" : " is") + " over 5 MB.</strong> Fine to keep " +
+        "if the detail matters, but exporting as JPG at ~90% will cut the size a " +
+        "lot with almost no visible loss.</div>";
+    }
+    // An image over the Cloudflare cap fails the deploy just like a .blend does.
+    var over = images.filter(function (f) { return f.size > CF_LIMIT; });
+    if (over.length) {
+      w.innerHTML += '<div class="warn"><strong>' +
+        over.map(function (f) { return f.name + " (" + fmtSize(f.size) + ")"; }).join(", ") +
+        " won't deploy.</strong> Cloudflare refuses any file over 25 MB. Export as " +
+        "JPG instead of PNG — a 4K render drops from ~40 MB to about 3 MB.</div>";
+    }
+    if (messy.length) {
+      w.innerHTML += '<div class="warn"><strong>Rename before saving.</strong> ' +
+        "Spaces and capitals break links once deployed. The code below already uses " +
+        "the tidy names — rename the actual files to match:<br>" +
+        messy.map(function (f) {
+          return "<code>" + f.name + "</code> → <code>" + tidyName(f.name) + "</code>";
+        }).join("<br>") + "</div>";
+    }
+  }
+
+  function renderBlend() {
+    var list = $("blendList"), w = $("blendWarn");
+    list.innerHTML = ""; w.innerHTML = "";
+    if (!blend) return;
+
+    var li = document.createElement("li");
+    li.innerHTML =
+      '<span class="nm">' + tidyName(blend.name) + "</span>" +
+      '<span class="sz">' + fmtSize(blend.size) + "</span>";
+    var x = document.createElement("button");
+    x.className = "iconbtn"; x.type = "button"; x.textContent = "×";
+    x.style.width = "30px";
+    x.onclick = function () { blend = null; $("blendInput").value = ""; renderBlend(); build(); };
+    li.appendChild(x);
+    list.appendChild(li);
+
+    if (blend.size > CF_LIMIT) {
+      w.innerHTML = '<div class="warn"><strong>Too big for Cloudflare (' +
+        fmtSize(blend.size) + " vs 25 MB limit).</strong> This file can't live in the " +
+        "repo. Either shrink it — <em>File → Clean Up → Purge Unused Data</em>, then " +
+        "save with <em>Compress</em> ticked — or upload it to Drive/Dropbox and paste " +
+        "the link in the field below. The code updates automatically.</div>";
+    } else if (blend.size > 20971520) {
+      w.innerHTML = '<div class="warn">Close to the 25 MB Cloudflare limit — fine ' +
+        "for now, but tick <em>Compress</em> when saving to be safe.</div>";
+    }
+  }
+
+  function wireDrop(dropId, inputId, onFiles) {
+    var drop = $(dropId), input = $(inputId);
+    input.addEventListener("change", function () { onFiles(input.files); });
+    ["dragenter", "dragover"].forEach(function (e) {
+      drop.addEventListener(e, function (ev) {
+        ev.preventDefault(); drop.classList.add("is-over");
+      });
+    });
+    ["dragleave", "drop"].forEach(function (e) {
+      drop.addEventListener(e, function (ev) {
+        ev.preventDefault(); drop.classList.remove("is-over");
+      });
+    });
+    drop.addEventListener("drop", function (ev) {
+      if (ev.dataTransfer && ev.dataTransfer.files.length) onFiles(ev.dataTransfer.files);
+    });
+  }
+
+  wireDrop("imgDrop", "imgInput", function (files) {
+    Array.prototype.forEach.call(files, function (f) {
+      if (!/^image\//.test(f.type)) return;
+      images.push({ name: f.name, size: f.size, url: URL.createObjectURL(f) });
+    });
+    renderImages(); build();
+  });
+
+  wireDrop("blendDrop", "blendInput", function (files) {
+    if (!files.length) return;
+    blend = { name: files[0].name, size: files[0].size };
+    renderBlend(); build();
+  });
+
+  /* ── spec rows ───────────────────────────────────── */
+
+  function addStat(k, v) {
+    var row = document.createElement("div");
+    row.className = "statrow";
+    row.innerHTML =
+      '<input type="text" placeholder="Label — e.g. Render time" value="' + (k || "") + '">' +
+      '<input type="text" placeholder="Value — e.g. 6 min" value="' + (v || "") + '">';
+    var del = document.createElement("button");
+    del.className = "iconbtn"; del.type = "button"; del.textContent = "×";
+    del.onclick = function () { row.remove(); build(); };
+    row.appendChild(del);
+    row.addEventListener("input", build);
+    $("stats").appendChild(row);
+  }
+  $("addStat").onclick = function () { addStat(); };
+
+  /* ── build the code block ────────────────────────── */
+
+  function build() {
+    var title = $("title").value.trim();
+    if (!title && !images.length) {
+      $("output").textContent = "// Fill in the form…";
+      $("steps").innerHTML = "";
+      return;
+    }
+
+    var L = [];
+    L.push("  {");
+    L.push("    title: " + q(title || "Untitled") + ",");
+    if ($("year").value.trim())     L.push("    year: " + q($("year").value.trim()) + ",");
+    if ($("category").value.trim()) L.push("    category: " + q($("category").value.trim()) + ",");
+    if ($("featured").checked)      L.push("    featured: true,");
+
+    if (images.length) {
+      L.push("");
+      L.push("    cover: " + q("assets/renders/" + tidyName(images[0].name)) + ",");
+      if (images.length > 1) {
+        L.push("    images: [");
+        L.push(images.slice(1).map(function (f) {
+          return "      " + q("assets/renders/" + tidyName(f.name));
+        }).join(",\n"));
+        L.push("    ],");
+      }
+    }
+
+    var desc = $("description").value.trim().replace(/\s+/g, " ");
+    if (desc) {
+      L.push("");
+      L.push("    description:");
+      L.push(wrapString(desc, "      ") + ",");
+    }
+
+    var sw = $("software").value.split(",").map(function (s) { return s.trim(); })
+             .filter(Boolean);
+    if (sw.length) {
+      L.push("");
+      L.push("    software: [" + sw.map(q).join(", ") + "],");
+    }
+
+    var rows = [];
+    Array.prototype.forEach.call($("stats").children, function (r) {
+      var k = r.children[0].value.trim(), v = r.children[1].value.trim();
+      if (k && v) rows.push("      " + q(k) + ": " + q(v));
+    });
+    if (rows.length) {
+      L.push("");
+      L.push("    stats: {");
+      L.push(rows.join(",\n"));
+      L.push("    },");
+    }
+
+    var link = $("blendLink").value.trim();
+    var url = link || (blend ? "files/" + tidyName(blend.name) : "");
+    if (url) {
+      L.push("");
+      L.push("    blend: {");
+      L.push("      url: " + q(url) + ",");
+      if (blend && !link) L.push("      size: " + q(fmtSize(blend.size)) + ",");
+      if ($("license").value.trim()) L.push("      license: " + q($("license").value.trim()) + ",");
+      L[L.length - 1] = L[L.length - 1].replace(/,$/, ""); // no trailing comma
+      L.push("    }");
+    } else {
+      L[L.length - 1] = L[L.length - 1].replace(/,$/, "");
+    }
+
+    L.push("  },");
+    $("output").textContent = L.join("\n");
+
+    /* ── the checklist ── */
+    var steps = [];
+    if (images.length) {
+      steps.push("Save <b>" + images.length + " image" + (images.length > 1 ? "s" : "") +
+        "</b> into <code>assets/renders/</code>" +
+        (images.some(function (f) { return messyName(f.name); })
+          ? " — <b>using the tidied names above</b>" : ""));
+    }
+    if (blend && !link) {
+      steps.push(blend.size > CF_LIMIT
+        ? "<b>Don't</b> put <code>" + tidyName(blend.name) + "</code> in the repo — it's " +
+          fmtSize(blend.size) + ", over Cloudflare's 25 MB limit. Upload it elsewhere and paste the link."
+        : "Save <code>" + tidyName(blend.name) + "</code> into <code>files/</code>");
+    }
+    steps.push("Paste the code above into <code>data/projects.js</code>, just after the <code>[</code>");
+    steps.push("Commit and push — Cloudflare redeploys on its own");
+    $("steps").innerHTML = steps.map(function (s) { return "<li>" + s + "</li>"; }).join("");
+  }
+
+  /* ── buttons ─────────────────────────────────────── */
+
+  $("copyBtn").onclick = function () {
+    var btn = this, text = $("output").textContent;
+    var done = function () {
+      btn.textContent = "Copied ✓"; btn.classList.add("copied");
+      setTimeout(function () { btn.textContent = "Copy code"; btn.classList.remove("copied"); }, 1600);
+    };
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(text).then(done, done);
+    } else {
+      var ta = document.createElement("textarea");
+      ta.value = text; document.body.appendChild(ta); ta.select();
+      document.execCommand("copy"); ta.remove(); done();
+    }
+  };
+
+  $("resetBtn").onclick = function () {
+    if (!confirm("Clear everything and start over?")) return;
+    images = []; blend = null;
+    ["title", "category", "description", "blendLink"].forEach(function (id) { $(id).value = ""; });
+    $("imgInput").value = ""; $("blendInput").value = "";
+    $("featured").checked = false;
+    $("stats").innerHTML = "";
+    addStat("Render time", ""); addStat("Samples", "");
+    renderImages(); renderBlend(); build();
+  };
+
+  document.addEventListener("input", function (e) {
+    if (e.target.closest(".tool")) build();
+  });
+
+  /* ── start ───────────────────────────────────────── */
+  $("year").value = new Date().getFullYear();
+  addStat("Render time", "");
+  addStat("Samples", "");
+  build();
+})();
+</script>
+</body>
+</html>

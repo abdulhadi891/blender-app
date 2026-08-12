@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Abdul Hadi — 3D Artist &amp; Blender Generalist</title>
+<meta name="description" content="3D renders and open Blender project files by Abdul Hadi. Browse the work, inspect the scenes, download the .blend files." />
+
+<link rel="icon" href="favicon.svg" type="image/svg+xml" />
+<link rel="canonical" href="https://madebyabdulhadi.com/" />
+
+<!-- Social preview -->
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://madebyabdulhadi.com/" />
+<meta property="og:title" content="Abdul Hadi — 3D Artist &amp; Blender Generalist" />
+<meta property="og:description" content="3D renders and open Blender project files. Browse the work, download the .blend files." />
+<meta property="og:image" content="https://madebyabdulhadi.com/assets/og.jpg" />
+<meta name="twitter:card" content="summary_large_image" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<div class="grain" aria-hidden="true"></div>
+
+<header class="nav" id="nav">
+  <a class="nav__brand" href="#top">
+    <span class="nav__mark" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round">
+        <path d="M12 2.5 21 7v10l-9 4.5L3 17V7z"/><path d="M3 7l9 4.5L21 7"/><path d="M12 11.5V21.5"/>
+      </svg>
+    </span>
+    <span>madebyabdulhadi</span>
+  </a>
+  <nav class="nav__links">
+    <a href="#work">Work</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<main id="top">
+
+  <!-- ── Hero ───────────────────────────────────────────── -->
+  <section class="hero">
+    <div class="hero__glow" aria-hidden="true"></div>
+    <div class="hero__inner">
+      <p class="eyebrow">3D Artist · Blender Generalist</p>
+      <h1 class="hero__title">
+        Renders you can look at.<br />
+        <span class="grad">Project files you can open.</span>
+      </h1>
+      <p class="hero__lede">
+        I model, light and render in Blender because I like making things. Where
+        I can, the <code>.blend</code> goes up with the render — open the scene,
+        dig through the node tree, take what's useful. Nothing behind a paywall.
+      </p>
+      <div class="hero__cta">
+        <a class="btn btn--primary" href="#work">Browse the work</a>
+        <a class="btn btn--ghost" href="#about">About me</a>
+      </div>
+      <dl class="hero__stats" id="heroStats">
+        <div><dt>Projects</dt><dd data-stat="projects">—</dd></div>
+        <div><dt>Open .blend files</dt><dd data-stat="blends">—</dd></div>
+        <div><dt>Render engine</dt><dd>Cycles / EEVEE</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- ── Work ───────────────────────────────────────────── -->
+  <section class="section" id="work">
+    <div class="section__head">
+      <h2 class="section__title">Selected work</h2>
+      <p class="section__sub">Click any piece for the full breakdown and the download.</p>
+    </div>
+
+    <div class="filters" id="filters" role="tablist" aria-label="Filter projects by category"></div>
+
+    <div class="grid" id="grid" aria-live="polite"></div>
+
+    <div class="empty" id="gridEmpty" hidden>
+      <span class="empty__icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round">
+          <path d="M12 2.5 21 7v10l-9 4.5L3 17V7z"/><path d="M3 7l9 4.5L21 7"/><path d="M12 11.5V21.5"/>
+        </svg>
+      </span>
+      <h3>First render coming soon</h3>
+      <p>New work gets posted here as I finish it — renders and the project files behind them.</p>
+    </div>
+  </section>
+
+  <!-- ── About ──────────────────────────────────────────── -->
+  <section class="section section--split" id="about">
+    <div>
+      <h2 class="section__title">About</h2>
+      <p class="prose">
+        I'm Abdul Hadi — a 3D artist working mainly in Blender. Product visuals,
+        environments, hard-surface models, and the occasional experiment that
+        exists purely because the lighting looked good at 2am.
+      </p>
+      <p class="prose">
+        This site is where I put that work. I publish the source files too, because
+        that's how I learned — if a scene here saves you an afternoon of guessing at
+        shader settings, it's done its job. Credit is appreciated, not enforced.
+      </p>
+      <ul class="tools">
+        <li>Blender</li><li>Cycles</li><li>EEVEE</li><li>Geometry Nodes</li>
+        <li>Substance</li><li>Photoshop</li><li>DaVinci Resolve</li>
+      </ul>
+    </div>
+    <aside class="card-note">
+      <h3>Using the files</h3>
+      <ol>
+        <li>Open any piece marked <code>.blend</code> and hit download.</li>
+        <li>Open in Blender 4.0 or newer — textures are packed unless noted.</li>
+        <li>Use it, remix it, ship it. A credit link back is always welcome.</li>
+      </ol>
+      <p class="fine">Files are provided as-is. Commercial use is fine unless a project says otherwise.</p>
+    </aside>
+  </section>
+
+  <!-- ── Contact ────────────────────────────────────────── -->
+  <section class="section section--contact" id="contact">
+    <h2 class="section__title">Say hello</h2>
+    <p class="prose prose--center">
+      Questions about a scene, a shader, or how something was put together —
+      I'm happy to answer. Same goes if you just want to show me what you made
+      with one of the files.
+    </p>
+    <div class="contact__actions">
+      <a class="btn btn--primary" href="mailto:hello@madebyabdulhadi.com">hello@madebyabdulhadi.com</a>
+    </div>
+    <ul class="socials">
+      <li><a href="#" data-social>ArtStation</a></li>
+      <li><a href="#" data-social>Instagram</a></li>
+      <li><a href="#" data-social>YouTube</a></li>
+      <li><a href="#" data-social>GitHub</a></li>
+    </ul>
+  </section>
+</main>
+
+<footer class="footer">
+  <span>© <span id="year">2026</span> Abdul Hadi</span>
+  <span class="footer__dot">·</span>
+  <span>madebyabdulhadi.com</span>
+</footer>
+
+<!-- ── Project detail overlay ───────────────────────────── -->
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" hidden>
+  <div class="modal__backdrop" data-close></div>
+  <div class="modal__panel" role="document">
+    <button class="modal__close" data-close aria-label="Close project">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+
+    <div class="modal__stage">
+      <img class="modal__img" id="modalImg" alt="" />
+      <button class="stagebtn stagebtn--prev" id="prevImg" aria-label="Previous image" hidden>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>
+      </button>
+      <button class="stagebtn stagebtn--next" id="nextImg" aria-label="Next image" hidden>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg>
+      </button>
+      <div class="modal__counter" id="modalCounter" hidden></div>
+    </div>
+
+    <div class="modal__body">
+      <div class="modal__headrow">
+        <div>
+          <p class="eyebrow" id="modalCat"></p>
+          <h3 id="modalTitle"></h3>
+        </div>
+        <span class="pill" id="modalYear"></span>
+      </div>
+
+      <p class="modal__desc" id="modalDesc"></p>
+
+      <div class="thumbs" id="modalThumbs"></div>
+
+      <dl class="specs" id="modalSpecs"></dl>
+
+      <div class="modal__dl" id="modalDl"></div>
+
+      <section class="comments" id="comments">
+        <h4 class="comments__title">Comments</h4>
+        <div id="commentsMount"></div>
+      </section>
+    </div>
+  </div>
+</div>
+
+<!-- Your projects live here. Edit data/projects.js to add work. -->
+<script src="data/projects.js"></script>
+<script src="data/comments.js"></script>
+<script src="app.js"></script>
+<!-- Manage panel. Only appears on your own computer, or with #admin. -->
+<script src="admin.js"></script>
+</body>
+</html>
