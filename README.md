@@ -56,9 +56,36 @@ upload button work would mean putting a GitHub token inside the page, and
 anyone could read it out of the page source and take over the repo. The panel
 does everything else and hands you the finished files instead.
 
-The button never appears for visitors. It only shows on your own machine
-(`localhost` or opening the file directly); on the live site it stays hidden
-unless you add `#admin` to the address.
+### Getting the button on the live site
+
+It's hidden from visitors. To switch it on for yourself, visit once:
+
+```
+https://madebyabdulhadi.com/#admin
+```
+
+That browser now remembers it — the button is there on every normal visit
+afterwards, no `#admin` needed. It's stored in your browser, not in the site,
+so nobody else ever sees it. Do it again on your phone or another browser if
+you want it there too.
+
+To switch it back off: `https://madebyabdulhadi.com/#admin-off`
+
+### Deleting on the live site — read this
+
+Deleting in the panel while you're on the live domain only changes **your**
+browser. Visitors still see everything. The panel says so in an orange banner
+when you're not on localhost.
+
+To actually remove something from the site:
+
+1. Delete it in the panel
+2. **Download projects.js** at the bottom of the panel
+3. Upload that file into `data/` on GitHub (same name overwrites)
+4. Delete its image in `assets/renders/` and any `.blend` in `files/`
+
+Or skip the panel entirely and edit `data/projects.js` on GitHub directly —
+see *Removing, editing or reordering a piece* below.
 
 ## Adding a render — the easy way
 

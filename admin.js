@@ -30,9 +30,37 @@
 
   var host = location.hostname;
   var isLocal = host === "localhost" || host === "127.0.0.1" || host === "";
-  if (!isLocal && location.hash.indexOf("admin") === -1) return;
 
   var LS_KEY = "mba_draft_v1";
+  var UNLOCK = "mba_admin_on";
+
+  // Visit  yoursite.com/#admin  once and this browser remembers it, so the
+  // button is just there from then on. Visitors never see it — it's stored
+  // per-browser, not in the site. Use #admin-off to switch it back off.
+  function readHash() {
+    try {
+      if (location.hash.indexOf("admin-off") !== -1) {
+        localStorage.removeItem(UNLOCK); return "off";
+      }
+      if (location.hash.indexOf("admin") !== -1) {
+        localStorage.setItem(UNLOCK, "1"); return "on";
+      }
+    } catch (e) {}
+    return null;
+  }
+
+  readHash();
+
+  // Typing #admin onto a page that's already open doesn't reload it, so the
+  // script never re-runs and nothing appears. Catch that and refresh.
+  window.addEventListener("hashchange", function () {
+    var r = readHash();
+    if (r) location.reload();
+  });
+
+  var unlocked = false;
+  try { unlocked = localStorage.getItem(UNLOCK) === "1"; } catch (e) {}
+  if (!isLocal && !unlocked) return;
 
   var list = [];          // the working list of projects
   var files = {};         // path -> File, for the renamed downloads
@@ -328,9 +356,19 @@
     head.appendChild(x);
     box.appendChild(head);
 
-    box.appendChild(el("p", "adm__note",
-      "Changes show in the gallery straight away and are kept in this browser. " +
-      "When you're happy, download below and put the files on GitHub."));
+    if (isLocal) {
+      box.appendChild(el("p", "adm__note",
+        "Changes show in the gallery straight away and are kept in this browser. " +
+        "When you're happy, download below and put the files on GitHub."));
+    } else {
+      // On the real domain it's easy to delete something, see it vanish, and
+      // assume it's gone for everyone. It isn't — say so plainly.
+      box.appendChild(el("div", "adm__warn",
+        "<b>You're on the live site.</b> Deleting here only changes what " +
+        "<i>you</i> see in this browser — visitors still see everything. " +
+        "To make it real: delete it, then <b>Download projects.js</b> at the " +
+        "bottom and upload that file to <code>data/</code> on GitHub."));
+    }
 
     listEl = el("div");
     box.appendChild(listEl);

@@ -33,44 +33,6 @@ window.PROJECTS = [
       size: "4.1 MB",
       license: "Free to use · credit appreciated"
     }
-  },
-
-  {
-    title: "Sneaker Display",
-    year: "2026",
-    category: "Product",
-
-    cover: "assets/renders/sneaker-display.jpg",
-
-    description:
-      "Product shot on a brass and black-marble plinth, lit by a city " +
-      "skyline at night. The vertical brass rods throw long highlights down " +
-      "the frame, and the glossy riser picks up a soft reflection of the sole.",
-
-    software: ["Blender"],
-
-    stats: {
-      "Resolution": "2160 × 2160"
-    }
-  },
-
-  {
-    title: "Floating Watch",
-    year: "2026",
-    category: "Product",
-
-    cover: "assets/renders/floating-watch.jpg",
-
-    description:
-      "A quiet studio study — polished steel against a soft grey gradient, " +
-      "with a thin gold arc framing the watch and a dark reflective dome " +
-      "underneath. Almost all of the work here is in the lighting.",
-
-    software: ["Blender"],
-
-    stats: {
-      "Resolution": "2160 × 2160"
-    }
   }
 
 ];
