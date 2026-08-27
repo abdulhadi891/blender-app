@@ -9,10 +9,38 @@
 window.PROJECTS = [
 
   {
+    title: "GT3 RS Studio",
+    year: "2026",
+    category: "Automotive",
+
+    cover: "assets/renders/gt3-rs.jpg",
+
+    description:
+      "White-on-black studio setup for the 911 GT3 RS. Long soft strip "     +
+      "lights run down each flank to draw the body line from the front "    +
+      "arch to the rear wing, and a polished floor doubles the car in "     +
+      "reflection. The background falls off to near-black so the silhouette "+
+      "carries the shot.",
+
+    software: ["Blender", "Cycles"],
+
+    stats: {
+      "Resolution": "768 × 432",
+      "Samples": "64",
+      "Tris": "368,855",
+      "Objects": "128"
+    },
+
+    blend: {
+      url: "files/gt3-rs.blend",
+      size: "13.0 MB"
+    }
+  },
+
+  {
     title: "9mm Hero Scene",
     year: "2026",
     category: "Hard Surface",
-    featured: true,
 
     cover: "assets/renders/9mm-hero-scene.jpg",
 
