@@ -9,6 +9,31 @@
 window.PROJECTS = [
 
   {
+    title: "650S GT3 Studio",
+    year: "2026",
+    category: "Automotive",
+    featured: true,
+
+    cover: "assets/renders/mclaren-650s-gt3.jpg",
+
+    description:
+      "Ultrawide studio plate for the 650S GT3. Two coloured walls - warm "  +
+      "on the left, cool on the right - do all the separation work, so the " +
+      "silver bodywork picks up a different temperature down each flank "    +
+      "while a hard rim light rakes the roofline. The floor is kept just "   +
+      "glossy enough to hold a soft reflection without competing.",
+
+    software: ["Blender", "Cycles"],
+
+    stats: {
+      "Resolution": "2560 × 1072",
+      "Samples": "300",
+      "Tris": "312,138",
+      "Materials": "53"
+    }
+  },
+
+  {
     title: "Rolex Dome",
     year: "2026",
     category: "Product",
@@ -41,7 +66,6 @@ window.PROJECTS = [
 
   {
     title: "GT3 RS Studio",
-    featured: true,
     year: "2026",
     category: "Automotive",
 
@@ -71,7 +95,6 @@ window.PROJECTS = [
 
   {
     title: "9mm Hero Scene",
-    featured: true,
     year: "2026",
     category: "Hard Surface",
 
