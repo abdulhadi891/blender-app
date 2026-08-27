@@ -9,7 +9,39 @@
 window.PROJECTS = [
 
   {
+    title: "Rolex Dome",
+    year: "2026",
+    category: "Product",
+
+    cover: "assets/renders/rolex-dome.jpg",
+
+    description:
+      "An advertising still built almost entirely out of light. The watch "  +
+      "floats inside a thin brass arc, lit by a soft gradient that keeps "   +
+      "the steel bright against a near-neutral grey. Everything under it - " +
+      "the lacquered dome and the mirrored floor - exists to give the "      +
+      "reflection somewhere to go. No image textures at all; every surface " +
+      "is procedural.",
+
+    software: ["Blender", "Cycles"],
+
+    stats: {
+      "Resolution": "2160 × 2160",
+      "Samples": "700",
+      "Tris": "184,739",
+      "Materials": "20, all procedural"
+    },
+
+    blend: {
+      url: "files/rolex-dome.blend",
+      size: "8.7 MB",
+      license: "Free to use · credit appreciated"
+    }
+  },
+
+  {
     title: "GT3 RS Studio",
+    featured: true,
     year: "2026",
     category: "Automotive",
 
@@ -39,6 +71,7 @@ window.PROJECTS = [
 
   {
     title: "9mm Hero Scene",
+    featured: true,
     year: "2026",
     category: "Hard Surface",
 

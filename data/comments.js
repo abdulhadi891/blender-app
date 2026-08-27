@@ -23,8 +23,8 @@ window.COMMENTS = {
 
   enabled: false,                    // ← flip to true once filled in
 
-  repo:       "YOUR-USERNAME/YOUR-REPO",   // e.g. "abdulhadi/madebyabdulhadi"
-  repoId:     "",                          // e.g. "R_kgDOK1a2b3"
+  repo:       "abdulhadi891/blender-app",
+  repoId:     "R_kgDOT2U8eA",              // read from GitHub's public API
   category:   "Announcements",             // the Discussions category to use
   categoryId: "",                          // e.g. "DIC_kwDOK1a2b3c4d5"
 
