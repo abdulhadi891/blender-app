@@ -30,6 +30,11 @@ window.PROJECTS = [
       "Samples": "300",
       "Tris": "312,138",
       "Materials": "53"
+    },
+
+    blend: {
+      url: "files/mclaren-650s-gt3.blend",
+      size: "19.8 MB"
     }
   },
 
