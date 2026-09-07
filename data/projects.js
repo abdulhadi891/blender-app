@@ -9,10 +9,42 @@
 window.PROJECTS = [
 
   {
+    title: "Watchmaker's Desk",
+    year: "2026",
+    category: "Product",
+
+    cover: "assets/renders/watch-desk.jpg",
+
+    description:
+      "A dressed set rather than a studio plate. The watch sits low in "     +
+      "frame at f-stop shallow enough that the lamp, the stacked books and " +
+      "the loupe all dissolve into warm bokeh, leaving the dial as the one " +
+      "sharp thing. The lamp is the only real light in the scene; "          +
+      "everything else is bounce off the desk and the back wall. Note the "  +
+      "download is a slimmed copy: every texture is resized to 1K so the "   +
+      "file fits the host's 25 MB limit. The full scene runs 4K maps and "   +
+      "weighs 92 MB.",
+
+    software: ["Blender", "Cycles"],
+
+    stats: {
+      "Resolution": "1920 × 1048",
+      "Samples": "400",
+      "Tris": "95,788",
+      "Objects": "166"
+    },
+
+    blend: {
+      url: "files/watch-desk.blend",
+      size: "23.5 MB",
+      license: "Free to use · credit appreciated"
+    }
+  },
+
+  {
     title: "650S GT3 Studio",
     year: "2026",
     category: "Automotive",
-    featured: true,
 
     cover: "assets/renders/mclaren-650s-gt3.jpg",
 
